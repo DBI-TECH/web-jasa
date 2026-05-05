@@ -322,7 +322,13 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 --
 DROP TABLE IF EXISTS `dashboard_stats`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dashboard_stats`  AS SELECT (select count(0) from `services`) AS `total_services`, (select count(0) from `portfolios`) AS `total_portfolios`, (select count(0) from `pricings`) AS `total_pricings`, (select count(0) from `users`) AS `total_users`, (select count(0) from `contacts` where (`contacts`.`is_read` = 0)) AS `unread_messages``unread_messages`  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dashboard_stats` AS 
+SELECT 
+    (SELECT COUNT(*) FROM services) AS total_services,
+    (SELECT COUNT(*) FROM portfolios) AS total_portfolios,
+    (SELECT COUNT(*) FROM pricings) AS total_pricings,
+    (SELECT COUNT(*) FROM users) AS total_users,
+    (SELECT COUNT(*) FROM contacts WHERE is_read = 0) AS unread_messages;
 
 -- --------------------------------------------------------
 
